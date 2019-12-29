@@ -6,14 +6,14 @@ import { selectCollections } from "../../redux/shop-reducer/shop.selector";
 
 class ShopPage extends React.Component {
 
-    render(){
-        const {collections} = this.props;
+    render() {
+        const { collections } = this.props;
         return (
             <div className="shop-page">
                 {
-              collections.map(({id, ...otherCollectionPreview}) => (
-                  <CollectionPreview key={id} {...otherCollectionPreview} />
-              ))
+                    collections.map(({ id, ...otherCollectionPreview }) => (
+                        <CollectionPreview key={id} {...otherCollectionPreview} />
+                    ))
                 }
             </div>
         )
@@ -22,7 +22,7 @@ class ShopPage extends React.Component {
 
 
 const mapStateToProps = createStructuredSelector({
-    collections:selectCollections
+    collections: selectCollections
 })
 
 export default connect(mapStateToProps)(ShopPage);

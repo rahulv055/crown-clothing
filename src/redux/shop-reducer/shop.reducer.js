@@ -5,8 +5,8 @@ const INTIAL_STATE = {
 }
 
 
-const shopReducer = (state=INTIAL_STATE,action) => {
-    switch(action.type){
+const shopReducer = (state = INTIAL_STATE, action) => {
+    switch (action.type) {
         default:
             return state;
     }
