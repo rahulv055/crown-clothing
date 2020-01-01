@@ -5,7 +5,10 @@ import logger from 'redux-logger';
 
 import rootReducer from './root-reducer';
 
-export const store = createStore(rootReducer, applyMiddleware(logger));
+const middleWares = [];
+middleWares.push(logger)
+
+export const store = createStore(rootReducer, applyMiddleware(...middleWares));
 
 export const persistor = persistStore(store)
 
