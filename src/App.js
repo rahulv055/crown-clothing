@@ -7,35 +7,32 @@ import ShopPage from "./pages/shop/shop.components";
 import Header from "./components/header/header.components";
 import Checkout from "./pages/checkout/checkout.component"
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.components"
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-import { setCurrentUser } from "./redux/user-reducer/user.actions";
 import { selectCurrentUser } from "./redux/user-reducer/user.selectors";
+import { checkUserSession } from "./redux/user-reducer/user.actions";
 //  import { selectCollectionsForPreview  } from "./redux/shop-reducer/shop.selector";
 
 
 class App extends React.Component {
 
-  unsubscribeFromAuth = null;
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+    const {checkUserSession} = this.props;
+    checkUserSession();
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot(snapshot => {
-          this.props.setCurrentUser({
-            id: snapshot.id,
-            ...snapshot.data()
-          });
-        });
-      }
-      this.props.setCurrentUser(userAuth);
-      //  addCollectionAndDocument('collections',this.props.collectionsArray.map(({title,items})=>{
-      //    return {title,items}
-      //  }));
-    });
-  }
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
+    //     userRef.onSnapshot(snapshot => {
+    //       this.props.setCurrentUser({
+    //         id: snapshot.id,
+    //         ...snapshot.data()
+    //       });
+    //     });
+    //   }
+    //   this.props.setCurrentUser(userAuth);
+    //   //  addCollectionAndDocument('collections',this.props.collectionsArray.map(({title,items})=>{
+    //   //    return {title,items}
+    //   //  }));
+    // });
   }
   render() {
     return (
@@ -64,7 +61,9 @@ const mapStateToProps = (state) => ({
   currentUser: selectCurrentUser(state),
   // collectionsArray: selectCollectionsForPreview(state)
 })
+
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  checkUserSession: () => dispatch(checkUserSession())
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -2,8 +2,8 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { fecthCollectionStartAsync } from "../../redux/shop-reducer/shop.actions";
-import  CollectionOverviewContainer  from "../../components/collection-overview/collection-overview.container";
+import { fetchCollectionStart } from "../../redux/shop-reducer/shop.actions";
+import CollectionOverviewContainer from "../../components/collection-overview/collection-overview.container";
 import CollectionContainer from "../collections/collection.container";
 class ShopPage extends React.Component {
   state = {
@@ -12,12 +12,12 @@ class ShopPage extends React.Component {
   unsubcribeFromSnapshot = null;
 
   componentDidMount() {
-    const {updateCollections} = this.props;
-      updateCollections();
+    const { updateCollections } = this.props;
+    updateCollections();
   }
 
   render() {
-    const { match} = this.props;
+    const { match } = this.props;
     console.log(match);
     return (
       <div className="shop-page">
@@ -29,7 +29,7 @@ class ShopPage extends React.Component {
 };
 
 const mapDispatchToProps = dispatch => ({
-  updateCollections: () => dispatch(fecthCollectionStartAsync())
+  updateCollections: () => dispatch(fetchCollectionStart())
 })
 
 
